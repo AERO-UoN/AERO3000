@@ -33,6 +33,6 @@ if K_n > 0
 elseif K_n == 0
     disp('The aircraft is NEUTRALLY STABLE.');
 else
-    K_n('The aircraft is UNSTABLE (Negative Static Margin).');
+    disp('The aircraft is UNSTABLE (Negative Static Margin).');
 end
 

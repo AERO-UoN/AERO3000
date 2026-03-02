@@ -38,7 +38,11 @@ T = 0.5 * rho * V^2 * S * CD;
 Y = 0.5 * rho * V^2 * S * CY;
 
 % Compute roll angle (phi) from lateral equilibrium: Y + W * sin(phi) = 0
-phi = asin(-Y / (m * g)); % Roll angle in radians
+ratio = -Y / (m * g);
+if abs(ratio) > 1
+    error('Lateral equilibrium is not possible: |Y| exceeds weight (|Y/(mg)| = %.4f > 1).', abs(ratio));
+end
+phi = asin(ratio); % Roll angle in radians
 phi_deg = rad2deg(phi); % Convert to degrees
 
 % Display results
