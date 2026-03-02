@@ -1,3 +1,29 @@
+% =========================================================================
+% Tutorial 1.3 - MATLAB Plotting: Aircraft Altitude Profiles
+% =========================================================================
+% PURPOSE:
+%   Practise MATLAB plotting by visualising how an aircraft's altitude
+%   changes during a climb. Three scenarios are compared: a slow constant
+%   climb, a faster constant climb, and a climb perturbed by turbulence.
+%
+% CONCEPTS TAUGHT:
+%   - Creating and formatting 2-D line plots (plot, xlabel, ylabel, title)
+%   - Overlaying multiple curves (hold on / hold off, legend)
+%   - Arranging related plots with subplot
+%   - Modelling flight profiles with linear and sinusoidal terms
+%
+% KEY ASSUMPTIONS:
+%   - Climb rate is constant for scenarios 1 and 2: h(t) = h0 + vc*t
+%   - Turbulence in scenario 3 is approximated as a small sinusoidal
+%     perturbation added to the mean climb: h(t) = h0 + vc*t + A*sin(omega*t)
+%   - No atmospheric model (density, temperature) is included here
+%
+% EXPECTED OUTPUT:
+%   - Figure 1: Single climb profile at vc = 10 m/s
+%   - Figure 2: Overlay of two climb rates (10 m/s vs 15 m/s)
+%   - Figure 3: Subplots comparing constant climb vs turbulent climb
+% =========================================================================
+
 % Define parameters
 t = 0:1:60;   % Time vector (0 to 60 seconds, step = 1 sec)
 h0 = 500;     % Initial altitude (m)

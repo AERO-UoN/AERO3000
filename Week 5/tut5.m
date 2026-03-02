@@ -1,3 +1,58 @@
+% =========================================================================
+% Tutorial 5 - Lateral-Directional Equilibrium and Damaged Aircraft Control
+% =========================================================================
+% PURPOSE:
+%   Determine the control surface deflections (aileron delta_a, rudder
+%   delta_r) and sideslip angle (beta) required to maintain equilibrium
+%   flight for a STOL aircraft with structural damage to one wing.
+%   Two scenarios are analysed: wings-level flight and a standard-rate turn.
+%
+% CONCEPTS TAUGHT:
+%   Lateral-directional equilibrium:
+%     In steady flight with constant heading and no roll, the lateral force,
+%     rolling moment, and yawing moment must all be zero.  This gives three
+%     simultaneous linear equations in three unknowns (beta, delta_a, delta_r):
+%       [CYb   CYda  CYdr] [beta   ]   [ 0    ]
+%       [Clb   Clda  Cldr] [delta_a] = [ 0    ]
+%       [Cnb   Cnda  Cndr] [delta_r]   [-Cn0  ]
+%     where Cn0 is the residual yawing moment due to wing damage.
+%
+%   Stability derivatives (all per radian):
+%     CYb  - side force due to sideslip
+%     Clb  - rolling moment due to sideslip (dihedral effect)
+%     Cnb  - yawing moment due to sideslip (weathercock stability)
+%     Clda - rolling moment due to aileron deflection
+%     Cndr - yawing moment due to rudder deflection  (etc.)
+%
+%   Standard-rate turn (Part 2):
+%     A standard-rate turn completes 360 deg in 2 minutes, giving a yaw
+%     rate r = pi/60 rad/s.  The non-dimensional yaw rate is:
+%       r_hat = r * b / (2V)
+%     Cross-coupling from the yaw rate (Clr, Cnr terms) must be balanced
+%     by the control surfaces.
+%
+%   Damaged aircraft (Part 3):
+%     Wing structural damage creates asymmetric drag, modelled as a
+%     constant yawing moment Cn0.  The sign of Cn0 reveals which wing:
+%       Cn0 < 0  =>  net yaw is nose-left  =>  LEFT wing damaged
+%       Cn0 > 0  =>  net yaw is nose-right =>  RIGHT wing damaged
+%
+% KEY ASSUMPTIONS:
+%   - Steady flight: all time derivatives and accelerations are zero
+%   - p-hat = 0 (no roll rate) throughout
+%   - Linear aerodynamics (constant stability derivatives)
+%   - Damage is modelled as a fixed offset moment Cn0; no change to other
+%     derivatives is assumed
+%
+% EXPECTED OUTPUT:
+%   - Part 1: beta [deg], delta_a [deg], delta_r [deg] for wings-level flight
+%   - Part 2: delta_a [deg], delta_r [deg] for the standard-rate turn
+%   - Part 3: which wing was damaged, inferred from the sign of Cn0
+%
+% Reference: Nelson, R.C. (1998) Flight Stability and Automatic Control,
+%            Ch.5 (Lateral-Directional Stability and Control).
+% =========================================================================
+
 % Load aircraft stability data from provided script
 FlightData = load_stol_data();
 Aero = FlightData.Aero;
