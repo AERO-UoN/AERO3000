@@ -47,10 +47,18 @@ X2 = A2 \ B2;
 delta_a_turn_deg = rad2deg(X2(1));
 delta_r_turn_deg = rad2deg(X2(2));
 
-% PART 3: Dameged side
-% Pick one option from belwo and delete the other
-damage_side = 'Left';
-% damage_side = 'Right';
+%% PART 3: Determine Damaged Wing Side
+% The residual yawing moment C_n0 is caused by asymmetric drag from the damaged wing.
+% Sign convention: positive yaw = nose-right.
+%   C_n0 < 0  →  net yaw is nose-left  →  extra drag on the LEFT wing  →  LEFT wing damaged
+%   C_n0 > 0  →  net yaw is nose-right →  extra drag on the RIGHT wing →  RIGHT wing damaged
+if C_n0 < 0
+    damage_side = 'Left';
+elseif C_n0 > 0
+    damage_side = 'Right';
+else
+    damage_side = 'Unknown (C_n0 = 0, no asymmetric damage detected)';
+end
 
 %% Display Results
 disp('Wings-Level Flight:');
