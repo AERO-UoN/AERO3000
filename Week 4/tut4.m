@@ -1,3 +1,55 @@
+% =========================================================================
+% Tutorial 4 - Longitudinal Static Stability: Neutral Point and Static Margin
+% =========================================================================
+% PURPOSE:
+%   Calculate the stick-fixed neutral point (x_NP) and static margin (K_n)
+%   for a conventional aircraft configuration, and determine whether the
+%   aircraft is statically stable in the longitudinal (pitch) axis.
+%
+% CONCEPTS TAUGHT:
+%   Static stability (pitch):
+%     An aircraft is statically stable in pitch if a nose-up disturbance
+%     generates a restoring (nose-down) pitching moment.  The key parameter
+%     governing this is the location of the CG relative to the neutral point.
+%
+%   Neutral point (x_NP):
+%     The CG location at which the aircraft is neutrally stable — the
+%     pitching moment does not change with angle of attack (dCm/dalpha = 0).
+%     Locations are expressed as fractions of the mean aerodynamic chord.
+%     x_NP is computed from wing and tail contributions:
+%       x_NP = x_ac + eta_t * V_bar * (C_L_alpha_t / C_L_alpha) * (1 - deps_dalpha)
+%     where V_bar = S_t * l_t_bar / (S * c_bar) is the tail volume coefficient.
+%
+%   Static margin (K_n):
+%     K_n = x_NP - x_cg
+%     K_n > 0  =>  CG is ahead of the neutral point  =>  STABLE
+%     K_n = 0  =>  CG is at the neutral point         =>  NEUTRALLY STABLE
+%     K_n < 0  =>  CG is behind the neutral point     =>  UNSTABLE
+%     Typical civil aircraft: K_n = 5–15% MAC (positive margin for safety).
+%     Fighter aircraft may be designed with small or negative margins
+%     (relaxed static stability) for agility, relying on active control.
+%
+%   Downwash (deps_dalpha):
+%     The wing generates a downward-deflected wake (downwash) that reduces
+%     the effective angle of attack seen by the horizontal tail.  This
+%     reduces the tail's stabilising contribution by the factor (1 - deps_dalpha).
+%
+% KEY ASSUMPTIONS:
+%   - Stick-fixed analysis (elevator is fixed; pilot not moving the stick)
+%   - Linear aerodynamics (constant lift curve slopes)
+%   - Symmetric flight (no sideslip or roll)
+%   - Fuselage and power effects on Cm are neglected
+%
+% EXPECTED OUTPUT:
+%   - C_L_alpha   [1/rad]: total aircraft lift curve slope
+%   - x_NP        [fraction MAC]: stick-fixed neutral point location
+%   - K_n         [fraction MAC]: static margin (positive = stable)
+%   - Stability verdict printed to the command window
+%
+% Reference: Nelson, R.C. (1998) Flight Stability and Automatic Control,
+%            Ch.3 (Static Stability and Control).
+% =========================================================================
+
 % Given data
 x_cg = 0.235; % Center of gravity location (fraction of mean aerodynamic chord)
 x_ac = 0.25;  % Aerodynamic center location (fraction of mean aerodynamic chord)

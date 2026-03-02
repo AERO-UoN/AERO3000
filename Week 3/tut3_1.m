@@ -1,3 +1,37 @@
+% =========================================================================
+% Tutorial 3.1 - Data Analysis: Polynomial Curve Fitting
+% =========================================================================
+% PURPOSE:
+%   Fit linear and quadratic polynomials to experimental data using
+%   MATLAB's polyfit/polyval functions.  In aeronautics, this technique
+%   is used to build analytical approximations from wind-tunnel or
+%   flight-test data — for example, fitting a lift curve (CL vs alpha)
+%   or a drag polar (CD vs CL^2) so the result can be used in equations.
+%
+% CONCEPTS TAUGHT:
+%   - polyfit(x, y, n): least-squares polynomial fit of degree n.
+%       Degree 1 gives y = m*x + c  (linear)
+%       Degree 2 gives y = a*x^2 + b*x + c  (quadratic)
+%   - polyval(p, x): evaluate a fitted polynomial at new x values
+%   - Choosing fit degree: linear fits are appropriate when data are nearly
+%     straight; quadratic fits capture curvature.  Higher-degree fits risk
+%     overfitting (Runge's phenomenon).
+%   - Visualising the fit against the raw data to assess quality
+%
+% KEY ASSUMPTIONS:
+%   - Temperature-pressure data are synthetic illustrative values
+%   - No outlier detection or cross-validation is applied here
+%   - Fit quality is assessed visually; for rigorous use compute R^2 or
+%     residuals
+%
+% EXPECTED OUTPUT:
+%   - Figure showing data points with linear (red) and quadratic (green)
+%     fits overlaid
+%   - Printed polynomial coefficients for each fit
+%
+% Reference: MATLAB Documentation — polyfit, polyval
+% =========================================================================
+
 % Given experimental data (Example: Temperature vs. Pressure)
 temperature = [20, 25, 30, 35, 40, 45, 50]; % Temperature in Celsius
 pressure = [101.3, 102.5, 104.0, 105.8, 107.6, 110.2, 113.1]; % Pressure in kPa

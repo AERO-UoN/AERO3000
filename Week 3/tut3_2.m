@@ -1,3 +1,44 @@
+% =========================================================================
+% Tutorial 3.2 - Aircraft Lateral Equilibrium Analysis
+% =========================================================================
+% PURPOSE:
+%   Compute the mass, thrust, and roll angle of an aircraft in trimmed
+%   (equilibrium) flight using aerodynamic force coefficients and a simple
+%   force balance.
+%
+% CONCEPTS TAUGHT:
+%   Equilibrium (trim) flight: net forces and moments acting on the
+%   aircraft are zero.  For this steady flight condition the force balance
+%   simplifies to three scalar equations:
+%       Lift  = Weight        =>  L = mg          (vertical equilibrium)
+%       Thrust = Drag         =>  T = D           (longitudinal equilibrium)
+%       Side force + W*sin(phi) = 0               (lateral equilibrium)
+%
+%   Linear aerodynamic model:
+%     CL = CL1 + CL_alpha*(alpha - alpha_1)   (lift curve, linearised)
+%     CD = CD1 + CD_alpha*(alpha - alpha_1)   (drag polar, linearised)
+%     CY = CY_beta * beta                     (side force from sideslip)
+%
+%   Roll angle from sideslip:
+%     A non-zero sideslip angle beta generates a side force Y.  In lateral
+%     equilibrium the weight component W*sin(phi) must cancel this force:
+%       sin(phi) = -Y / (m*g)   =>   phi = asin(-Y / mg)
+%     This requires |Y| < mg; the code checks this condition explicitly.
+%
+% KEY ASSUMPTIONS:
+%   - Steady, level flight (constant altitude and speed, no acceleration)
+%   - Longitudinal and lateral equilibrium are decoupled
+%   - Linear aerodynamic model is valid near the reference condition alpha_1
+%
+% EXPECTED OUTPUT:
+%   - m   [kg]  : aircraft mass from the lift = weight condition
+%   - T   [N]   : thrust required to overcome aerodynamic drag
+%   - phi [deg] : bank angle required to balance the aerodynamic side force
+%
+% Reference: Nelson, R.C. (1998) Flight Stability and Automatic Control,
+%            Ch.2 (Equations of Motion and Equilibrium).
+% =========================================================================
+
 % Given conditions
 V = 67; % True airspeed (m/s)
 rho = 1.225; % Air density at sea level (kg/m^3)
