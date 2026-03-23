@@ -1,4 +1,57 @@
 function FlightData = load_stol_data()
+% LOAD_STOL_DATA  Return a structure of geometry, inertia, and aerodynamic
+%                 data for an example STOL transport aircraft.
+%
+%   FlightData = load_stol_data() returns a scalar struct with four fields:
+%
+%   FlightData.Geom      — Geometric properties (SI units)
+%     .S      Wing planform area                    [m^2]
+%     .b      Wing span                             [m]
+%     .cbar   Wing mean aerodynamic chord (MAC)     [m]
+%     .AR     Wing aspect ratio                     [-]
+%     .lf     Fuselage length                       [m]
+%     .qcw    Wing quarter-chord location from nose [m]
+%     .cg     Nominal CG location from leading edge [m]
+%     .St     Horizontal tail planform area         [m^2]
+%     .bt     Horizontal tail span                  [m]
+%     .ctbar  Horizontal tail MAC                   [m]
+%     .ARt    Horizontal tail aspect ratio          [-]
+%     .lt     Tail moment arm (with nominal CG)     [m]
+%     .Se     Elevator area                         [m^2]
+%     .wf     Fuselage width                        [m]
+%     .zv     Vertical tail vertical offset         [m]
+%     .lv     Vertical tail horizontal offset       [m]
+%     .Sv     Vertical tail planform area           [m^2]
+%     .Vv     Vertical tail volume coefficient      [-]
+%
+%   FlightData.Inertial  — Mass and inertia properties (SI units)
+%     .m      Aircraft mass                         [kg]
+%     .Ixx    Roll  moment of inertia               [kg m^2]
+%     .Iyy    Pitch moment of inertia               [kg m^2]
+%     .Izz    Yaw   moment of inertia               [kg m^2]
+%
+%   FlightData.Oper      — Nominal operating condition
+%     .rho    Air density                           [kg/m^3]
+%     .M      Mach number                           [-]
+%     .V      True airspeed                         [m/s]
+%     .g      Gravitational acceleration            [m/s^2]
+%
+%   FlightData.Aero      — Aerodynamic stability derivatives (all per radian)
+%     Longitudinal:  CLa, CDa, Cma, CLadot, Cmadot, CLq, Cmq, CLde, Cmde
+%     Lateral-dir.:  CYb, Clb, Cnb, Clp, Cnp, Clr, Cnr,
+%                    CYda, Clda, Cnda, CYdr, Cldr, Cndr
+%
+%   All values are originally from Nelson (1998) Table B.6, converted from
+%   US customary units (ft, lbm, slug) to SI units internally.
+%
+%   Example:
+%       fd = load_stol_data();
+%       disp(fd.Geom.b)    % wing span in metres
+%       disp(fd.Aero.Cnb)  % weathercock stability derivative
+%
+% Reference: Nelson, R.C. (1998) Flight Stability and Automatic Control,
+%            2nd ed., Appendix B, Table B.6.
+
 %% Example STOL aircraft data (Nelson, 1998)
 
 % Conversion factors
