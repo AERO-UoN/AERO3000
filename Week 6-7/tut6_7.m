@@ -1,3 +1,54 @@
+% =========================================================================
+% Tutorial 6-7 - Attitude Kinematics: Euler Angle and Quaternion Integration
+% =========================================================================
+% PURPOSE:
+%   Numerically propagate aircraft attitude over time by integrating the
+%   kinematic equations of motion using two different representations:
+%   Euler angles and quaternions.  The two methods are compared to illustrate
+%   their equivalence under normal flight conditions and to reveal the
+%   practical advantage of quaternions near the kinematic singularity.
+%
+% CONCEPTS TAUGHT:
+%   (a) Euler angle kinematics:
+%     Body angular rates [p; q; r] are related to Euler angle rates
+%     [phi_dot; theta_dot; psi_dot] through the transformation matrix T_eul:
+%       [phi_dot  ]   [1  sin(phi)*tan(theta)  cos(phi)*tan(theta)] [p]
+%       [theta_dot] = [0  cos(phi)             -sin(phi)           ] [q]
+%       [psi_dot  ]   [0  sin(phi)/cos(theta)  cos(phi)/cos(theta) ] [r]
+%     Note: T_eul becomes singular when theta = ±90 deg (gimbal lock).
+%     Forward Euler integration is used: angle(k+1) = angle(k) + dt*rate(k)
+%
+%   (b) Quaternion kinematics:
+%     The equivalent quaternion rate equation uses the skew-symmetric
+%     omega matrix:
+%       q_dot = 0.5 * omega_mat * q
+%     where omega_mat encodes [p, q, r] in a 4x4 skew-symmetric form.
+%     The quaternion is renormalised at each step to prevent drift.
+%     Results are converted back to Euler angles for comparison.
+%
+%   (c) Sensitivity to yaw rate:
+%     Part (c) repeats the quaternion integration with very small yaw rates
+%     (r = 0.1 and 0.01 deg/s) to show how the yaw angle evolves over 30 s.
+%     This illustrates the accuracy of numerical integration for slow motion.
+%
+% KEY ASSUMPTIONS:
+%   - Body angular rates omega = [p; q; r] are constant throughout (no
+%     aerodynamic feedback — open-loop kinematic simulation only)
+%   - Forward Euler is first-order accurate; a small time step (dt = 0.01 s)
+%     is used to keep integration error acceptable
+%   - Initial attitude is wings-level (phi0 = theta0 = 0) with psi0 = 90 deg
+%   - Student should replace the yaw rate r with their own student number
+%
+% EXPECTED OUTPUT:
+%   - Figure 1: Euler angle time histories from Euler integration
+%   - Figure 2: Euler angle time histories reconstructed from quaternion
+%               integration (should match Figure 1 closely)
+%   - Figure 3: Yaw angle psi for two small r values (quaternion integration)
+%
+% Reference: Stevens, B.L. & Lewis, F.L. (2016) Aircraft Control and
+%            Simulation, Ch.1; Stengel, R.F. (2004) Flight Dynamics, Ch.2.
+% =========================================================================
+
 %% Parameters
 phi0 = deg2rad(0);     % Initial roll angle (rad)
 theta0 = deg2rad(0);   % Initial pitch angle (rad)
