@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Name\")",
+      "Bash(powershell -Command \"Rename-Item -Path ''Week8-11'' -NewName ''Week 8-11'' -ErrorAction Stop\")",
+      "Bash(git add:*)",
+      "Bash(powershell -Command \"Remove-Item -Path ''Week 6'' -Recurse -Force\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
